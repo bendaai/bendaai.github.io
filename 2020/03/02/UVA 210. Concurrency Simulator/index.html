@@ -8,21 +8,21 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>Leetcode 1. 两数之和 - Shy</title>
+<title>UVA 210. Concurrency Simulator - Shy</title>
 
 
-    <meta name="description" content="比较简单的一道题，用字典idx保存 值：位置">
+    <meta name="description" content="逻辑其实挺清晰的，但是数据坑点很多,怀疑数据中可能有多的空行。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Leetcode 1. 两数之和">
-<meta property="og:url" content="http://yoursite.com/2020/03/02/Leetcode%201.%20%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/index.html">
+<meta property="og:title" content="UVA 210. Concurrency Simulator">
+<meta property="og:url" content="http://yoursite.com/2020/03/02/UVA%20210.%20Concurrency%20Simulator/index.html">
 <meta property="og:site_name" content="Shy">
-<meta property="og:description" content="比较简单的一道题，用字典idx保存 值：位置">
+<meta property="og:description" content="逻辑其实挺清晰的，但是数据坑点很多,怀疑数据中可能有多的空行。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="article:published_time" content="2020-03-02T06:22:47.000Z">
-<meta property="article:modified_time" content="2020-03-02T06:40:59.498Z">
+<meta property="article:published_time" content="2020-03-02T12:41:12.000Z">
+<meta property="article:modified_time" content="2020-03-02T16:45:25.222Z">
 <meta property="article:author" content="shy">
-<meta property="article:tag" content="leetcode">
+<meta property="article:tag" content="uva">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
@@ -89,7 +89,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/avatar.png" alt="Leetcode 1. 两数之和" height="28">
+                <img src="/images/avatar.png" alt="UVA 210. Concurrency Simulator" height="28">
             
             </a>
         </div>
@@ -149,7 +149,7 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-02T06:22:47.000Z">2020-03-02</time>
+                <time class="level-item has-text-grey" datetime="2020-03-02T12:41:12.000Z">2020-03-02</time>
                 
                 <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/oj/">oj</a>
@@ -159,7 +159,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    1 分钟 读完 (大约 166 个字)
+                    1 分钟 读完 (大约 223 个字)
                 </span>
                 
                 
@@ -168,36 +168,85 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                Leetcode 1. 两数之和
+                UVA 210. Concurrency Simulator
             
         </h1>
         <div class="content">
             <blockquote>
-<p>比较简单的一道题，用字典idx保存 值：位置</p>
+<p>逻辑其实挺清晰的，但是数据坑点很多,怀疑数据中可能有多的空行。</p>
 </blockquote>
 <a id="more"></a>
-<h1 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a>题目内容</h1><blockquote>
-<p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。<br>你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
-</blockquote>
-<h1 id="示例"><a href="#示例" class="headerlink" title="示例:"></a>示例:</h1><blockquote>
-<p>给定 nums = [2, 7, 11, 15], target = 9<br>因为 nums[0] + nums[1] = 2 + 7 = 9<br>所以返回 [0, 1]</p>
-</blockquote>
-<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">twoSum</span><span class="hljs-params">(self, nums: List[int], target: int)</span> -&gt; List[int]:</span>
-        idx=dict()
-        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(nums)):
-            diff=target-nums[i]
-            <span class="hljs-keyword">if</span> diff <span class="hljs-keyword">in</span> idx:
-                <span class="hljs-keyword">return</span> [idx[diff],i]
-            idx[nums[i]]=i 
-        <span class="hljs-keyword">return</span> [<span class="hljs-number">-1</span>,<span class="hljs-number">-1</span>]</code></pre>
+
+<h1 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h1><p><a href="https://vjudge.net/problem/UVA-210">https://vjudge.net/problem/UVA-210</a></p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> sys
+<span class="hljs-keyword">import</span> queue
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_input</span><span class="hljs-params">()</span>:</span>
+    lines=sys.stdin.readlines()
+    <span class="hljs-keyword">for</span> val <span class="hljs-keyword">in</span> lines:
+        x=val.strip()
+        <span class="hljs-keyword">if</span> x!=<span class="hljs-string">''</span>:
+            <span class="hljs-keyword">yield</span> x
+c=_input()
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">func</span><span class="hljs-params">()</span>:</span>
+    n,t1,t2,t3,t4,t5,Q=list(map(int,next(c).split()))
+    code_list=[]
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
+        que=queue.deque()
+        <span class="hljs-keyword">while</span> <span class="hljs-number">1</span>:
+            s=next(c).strip()
+            que.append(s)
+            <span class="hljs-keyword">if</span> s==<span class="hljs-string">'end'</span>:
+                <span class="hljs-keyword">break</span>
+        code_list.append(que)
+    block_que=queue.deque()
+    wait_que=queue.deque()
+    locked=<span class="hljs-number">0</span>
+    var2val=&#123;&#125;
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
+        wait_que.append(i)
+
+    <span class="hljs-keyword">while</span> len(wait_que)!=<span class="hljs-number">0</span>:
+        k=wait_que.popleft()
+        t=Q
+        <span class="hljs-keyword">while</span> <span class="hljs-number">1</span>:
+            s=code_list[k].popleft()
+            <span class="hljs-keyword">if</span> s==<span class="hljs-string">'end'</span>:
+                <span class="hljs-keyword">break</span>
+            <span class="hljs-keyword">elif</span> s==<span class="hljs-string">'lock'</span>:
+                t-=t3
+                <span class="hljs-keyword">if</span> locked==<span class="hljs-number">1</span>:
+                    code_list[k].appendleft(s)
+                    block_que.append(k)
+                    <span class="hljs-keyword">break</span>
+                <span class="hljs-keyword">else</span>:
+                    locked=<span class="hljs-number">1</span>
+            <span class="hljs-keyword">elif</span> s==<span class="hljs-string">'unlock'</span>:
+                t-=t4
+                locked=<span class="hljs-number">0</span>
+                <span class="hljs-keyword">if</span> len(block_que)&gt;<span class="hljs-number">0</span>:
+                    wait_que.appendleft(block_que.popleft())
+            <span class="hljs-keyword">elif</span> <span class="hljs-string">'='</span> <span class="hljs-keyword">in</span> s:
+                t-=t1
+                var2val[s[<span class="hljs-number">0</span>]]=s.split(<span class="hljs-string">'='</span>)[<span class="hljs-number">-1</span>].strip()
+            <span class="hljs-keyword">else</span>:
+                t-=t2
+                var=s[<span class="hljs-number">-1</span>]
+                print(<span class="hljs-string">f'<span class="hljs-subst">&#123;k+<span class="hljs-number">1</span>&#125;</span>: <span class="hljs-subst">&#123;var2val.get(var,<span class="hljs-number">0</span>)&#125;</span>'</span>)
+            <span class="hljs-keyword">if</span> t&lt;=<span class="hljs-number">0</span>:
+                wait_que.append(k)
+                <span class="hljs-keyword">break</span>
+T=int(next(c))
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(T): 
+    <span class="hljs-keyword">if</span> i&gt;<span class="hljs-number">0</span>:
+        print()
+    func()</code></pre>
         </div>
         
         <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/leetcode/" rel="tag">leetcode</a>
+                    <a class="has-link-grey -link" href="/tags/uva/" rel="tag">uva</a>
                 </div>
             </div>
         </div>
@@ -243,13 +292,13 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/03/02/Leetcode%202.%20%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">Leetcode 2. 两数相加</span>
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/02/Leetcode%204.%20%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/">
+                <span class="level-item">Leetcode 4. 寻找两个有序数组的中位数</span>
+                <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
-        
         
     </div>
 </div>
@@ -389,17 +438,9 @@
                     目录
                 </h3>
                 <ul class="menu-list"><li>
-        <a class="is-flex" href="#题目内容">
+        <a class="is-flex" href="#题目链接">
         <span class="has-mr-6">1</span>
-        <span>题目内容</span>
-        </a></li><li>
-        <a class="is-flex" href="#示例">
-        <span class="has-mr-6">2</span>
-        <span>示例:</span>
-        </a></li><li>
-        <a class="is-flex" href="#题解">
-        <span class="has-mr-6">3</span>
-        <span>题解</span>
+        <span>题目链接</span>
         </a></li></ul>
             </div>
         </div>
@@ -757,7 +798,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/avatar.png" alt="Leetcode 1. 两数之和" height="28">
+                    <img src="/images/avatar.png" alt="UVA 210. Concurrency Simulator" height="28">
                 
                 </a>
                 <p class="is-size-7">
