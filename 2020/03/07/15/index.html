@@ -8,18 +8,21 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>标签: leetcode - Shy</title>
+<title>15. 三数之和 - Shy</title>
 
 
-    <meta name="description" content="She was a shy, quiet-spoken girl">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Shy">
-<meta property="og:url" content="http://yoursite.com/tags/leetcode/page/2/index.html">
+    <meta name="description" content="当时2个数加起来为target时，可用逼近法【每一组的值都不可能有一个一样的，否则会重复】其他情况，不能重复使用与前一个位置的值一样的数来进行搜索【第l个值包括了后面的情况】">
+<meta property="og:type" content="article">
+<meta property="og:title" content="15. 三数之和">
+<meta property="og:url" content="http://yoursite.com/2020/03/07/15/index.html">
 <meta property="og:site_name" content="Shy">
-<meta property="og:description" content="She was a shy, quiet-spoken girl">
+<meta property="og:description" content="当时2个数加起来为target时，可用逼近法【每一组的值都不可能有一个一样的，否则会重复】其他情况，不能重复使用与前一个位置的值一样的数来进行搜索【第l个值包括了后面的情况】">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
+<meta property="article:published_time" content="2020-03-07T06:31:27.000Z">
+<meta property="article:modified_time" content="2020-03-07T06:33:12.240Z">
 <meta property="article:author" content="shy">
+<meta property="article:tag" content="leetcode">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
@@ -86,7 +89,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/avatar.png" alt="Shy" height="28">
+                <img src="/images/avatar.png" alt="15. 三数之和" height="28">
             
             </a>
         </div>
@@ -122,6 +125,10 @@
                     
                 
                 
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
                 
                 <a class="navbar-item search" title="搜索" href="javascript:;">
                     <i class="fas fa-search"></i>
@@ -135,420 +142,164 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-03-07T06:31:27.000Z">2020-03-07</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/oj/">oj</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    2 分钟 读完 (大约 265 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                15. 三数之和
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>当时2个数加起来为target时，可用逼近法【每一组的值都不可能有一个一样的，否则会重复】<br>其他情况，不能重复使用与前一个位置的值一样的数来进行搜索【第l个值包括了后面的情况】</p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a>题目内容</h1><blockquote>
+<p>给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有满足条件且不重复的三元组。</p>
+<p>注意：答案中不可以包含重复的三元组。</p>
+</blockquote>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><blockquote>
+<p>定数组 nums = [-1, 0, 1, 2, -1, -4]，</p>
+<p>满足要求的三元组集合为：<br>[<br>  [-1, 0, 1],<br>  [-1, -1, 2]<br>]</p>
+</blockquote>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">threeSum</span><span class="hljs-params">(self, nums: List[int])</span> -&gt; List[List[int]]:</span>
+        
+        nums=sorted(nums)
+        ans=[]
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(nums)<span class="hljs-number">-1</span>):
+            <span class="hljs-keyword">if</span> i!=<span class="hljs-number">0</span> <span class="hljs-keyword">and</span> nums[i]==nums[i<span class="hljs-number">-1</span>]:
+                <span class="hljs-keyword">continue</span>
+            target=-nums[i]
+            l,r=i+<span class="hljs-number">1</span>,len(nums)<span class="hljs-number">-1</span>
+            <span class="hljs-keyword">while</span> l&lt;r:
+                _sum=nums[l]+nums[r]
+                <span class="hljs-keyword">if</span> _sum&gt;target:
+                    r-=<span class="hljs-number">1</span>
+                <span class="hljs-keyword">elif</span> _sum&lt;target:
+                    l+=<span class="hljs-number">1</span>
+                <span class="hljs-keyword">else</span>:
+                    ans.append([nums[i],nums[l],nums[r]])
+                    l_val,r_val=nums[l],nums[r]
+                    <span class="hljs-keyword">while</span> l&lt;r <span class="hljs-keyword">and</span> nums[l]==l_val:
+                        l+=<span class="hljs-number">1</span>
+                    <span class="hljs-keyword">while</span> l&lt;r <span class="hljs-keyword">and</span> nums[r]==r_val:
+                        r-=<span class="hljs-number">1</span>
+        <span class="hljs-keyword">return</span> ans</code></pre>
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/leetcode/" rel="tag">leetcode</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
     <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">leetcode</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.jpg" alt="支付宝"></div>
+</a>
 
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-05T06:12:03.000Z">2020-03-05</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/oj/">oj</a>
-                </div>
                 
                 
-                <span class="level-item has-text-grey">
-                    
-                    
-                    4 分钟 读完 (大约 594 个字)
-                </span>
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/weixin.jpg" alt="微信"></div>
+</a>
+
                 
-                
-            </div>
         </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/03/05/Leetcode%208.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E6%95%B4%E6%95%B0%20(atoi)/">Leetcode 8. 字符串转换整数 (atoi)</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>按题目逻辑写代码即可</p>
-</blockquote>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/03/05/Leetcode%208.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E6%95%B4%E6%95%B0%20(atoi)/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
     </div>
 </div>
 
 
 
-
-
-
-
-
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-05T06:08:03.000Z">2020-03-05</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/oj/">oj</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 读完 (大约 152 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/03/05/Leetcode%207.%20%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC/">Leetcode 7. 整数反转</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>比较简单的一道题</p>
-</blockquote>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/03/05/Leetcode%207.%20%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-03T12:08:03.000Z">2020-03-03</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/oj/">oj</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    2 分钟 读完 (大约 271 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/03/03/Leetcode%206.%20Z%20%E5%AD%97%E5%BD%A2%E5%8F%98%E6%8D%A2/">Leetcode 6. Z 字形变换</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>模拟题目情况，发现行数变化为1…numRows,numRows,…1…<br>前后做差，为numRows+1个、numRows-1个-1循环</p>
-</blockquote>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/03/03/Leetcode%206.%20Z%20%E5%AD%97%E5%BD%A2%E5%8F%98%E6%8D%A2/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-03T11:10:56.000Z">2020-03-03</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/oj/">oj</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    2 分钟 读完 (大约 298 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/03/03/Leetcode%205.%20%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/">Leetcode 5. 最长回文子串</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>马拉车算法，根据回文串的对称性质的动态规划方法，O(n)复杂度</p>
-</blockquote>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/03/03/Leetcode%205.%20%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-02T09:25:38.000Z">2020-03-02</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/oj/">oj</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    2 分钟 读完 (大约 298 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/03/02/Leetcode%204.%20%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/">Leetcode 4. 寻找两个有序数组的中位数</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>把问题统一为寻找中间两个数的问题，用二分查找寻找第k个数</p>
-</blockquote>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/03/02/Leetcode%204.%20%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-02T08:48:08.000Z">2020-03-02</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/oj/">oj</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 429 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/03/02/Leetcode%203.%20%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/">Leetcode 3. 无重复字符的最长子串</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>dp[k]保存以k位置字符为结尾的最长子串长度<br>idx[e]保存e字符上一个出现的位置,如果没出现过，则认为上一个出现位置为-1<br>动态规划方程：dp[k]=min(dp[k-1]+1,k-idx[s[k]])</p>
-</blockquote>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/03/02/Leetcode%203.%20%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-02T08:37:42.000Z">2020-03-02</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/oj/">oj</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    2 分钟 读完 (大约 303 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/03/02/Leetcode%202.%20%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/">Leetcode 2. 两数相加</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>考察链表，链表的题都可以设置一个头结点，之后前插入或后插入</p>
-</blockquote>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/03/02/Leetcode%202.%20%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    
 <div class="card card-transparent">
-    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-        <div class="pagination-previous">
-            <a class="is-flex-grow has-text-black-ter" href="/tags/leetcode/">上一页</a>
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/03/07/16/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">16. 最接近的三数之和</span>
+            </a>
         </div>
-        <div class="pagination-next is-invisible is-hidden-mobile">
-            <a class="is-flex-grow has-text-black-ter" href="/tags/leetcode/page/3/">下一页</a>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/06/14/">
+                <span class="level-item">14. 最长公共前缀</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
         </div>
-        <ul class="pagination-list is-hidden-mobile">
-            
-            <li><a class="pagination-link has-text-black-ter" href="/tags/leetcode/">1</a></li>
-            
-            <li><a class="pagination-link is-current" href="/tags/leetcode/page/2/">2</a></li>
-            
-        </ul>
-    </nav>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: true,
+        verify: true,
+        app_id: 'RKbdsYASse5fPdfp8Hhl9ocz-gzGzoHsz',
+        app_key: 'j3dwidLsjuLSwswo9ky3dhF4',
+        placeholder: '点击开始评论...'
+    });
+</script>
+
+    </div>
 </div>
 </div>
                 
@@ -655,6 +406,30 @@
 </div>
     
         
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#题目内容">
+        <span class="has-mr-6">1</span>
+        <span>题目内容</span>
+        </a></li><li>
+        <a class="is-flex" href="#示例">
+        <span class="has-mr-6">2</span>
+        <span>示例</span>
+        </a></li><li>
+        <a class="is-flex" href="#题解">
+        <span class="has-mr-6">3</span>
+        <span>题解</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
     
         
 <div class="card widget">
@@ -1043,7 +818,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/avatar.png" alt="Shy" height="28">
+                    <img src="/images/avatar.png" alt="15. 三数之和" height="28">
                 
                 </a>
                 <p class="is-size-7">
