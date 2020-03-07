@@ -8,18 +8,23 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>标签: 紫书 - Shy</title>
+<title>UVA - 442 Matrix Chain Multiplication | 紫书 6-3 - Shy</title>
 
 
-    <meta name="description" content="She was a shy, quiet-spoken girl">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Shy">
-<meta property="og:url" content="http://yoursite.com/tags/%E7%B4%AB%E4%B9%A6/index.html">
+    <meta name="description" content="用栈来保存数组shape，如果用到’)’，则表示栈顶的两个元素相乘，不过要栈顶是B，次栈顶为A。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UVA - 442 Matrix Chain Multiplication | 紫书 6-3">
+<meta property="og:url" content="http://yoursite.com/2020/03/07/6-3/index.html">
 <meta property="og:site_name" content="Shy">
-<meta property="og:description" content="She was a shy, quiet-spoken girl">
+<meta property="og:description" content="用栈来保存数组shape，如果用到’)’，则表示栈顶的两个元素相乘，不过要栈顶是B，次栈顶为A。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
+<meta property="article:published_time" content="2020-03-07T08:06:38.000Z">
+<meta property="article:modified_time" content="2020-03-07T08:08:40.951Z">
 <meta property="article:author" content="shy">
+<meta property="article:tag" content="uva">
+<meta property="article:tag" content="紫书">
+<meta property="article:tag" content="栈">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
@@ -86,7 +91,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/avatar.png" alt="Shy" height="28">
+                <img src="/images/avatar.png" alt="UVA - 442 Matrix Chain Multiplication | 紫书 6-3" height="28">
             
             </a>
         </div>
@@ -122,6 +127,10 @@
                     
                 
                 
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
                 
                 <a class="navbar-item search" title="搜索" href="javascript:;">
                     <i class="fas fa-search"></i>
@@ -135,18 +144,7 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">紫书</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
 <div class="card">
     
     <div class="card-content article ">
@@ -172,23 +170,65 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2020/03/07/6-3/">UVA - 442 Matrix Chain Multiplication | 紫书 6-3</a>
+                UVA - 442 Matrix Chain Multiplication | 紫书 6-3
             
         </h1>
         <div class="content">
             <blockquote>
 <p>用栈来保存数组shape，如果用到’)’，则表示栈顶的两个元素相乘，不过要栈顶是B，次栈顶为A。</p>
 </blockquote>
+<a id="more"></a>
+
+<h1 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h1><p><a href="https://vjudge.net/problem/UVA-442">https://vjudge.net/problem/UVA-442</a></p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> sys
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_input</span><span class="hljs-params">()</span>:</span>
+    lines=sys.stdin.read().split(<span class="hljs-string">'\n'</span>)
+    <span class="hljs-keyword">for</span> val <span class="hljs-keyword">in</span> lines:
+        x=val.strip()
+        <span class="hljs-keyword">if</span> x!=<span class="hljs-string">''</span>:
+            <span class="hljs-keyword">yield</span> val
+c=_input()
+n=int(next(c))
+dic=&#123;&#125;
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">multi</span><span class="hljs-params">(A,B)</span>:</span>
+    <span class="hljs-comment">#return not_error,cnt,new matrix</span>
+    <span class="hljs-comment"># A [a1,a2]</span>
+    <span class="hljs-comment"># B [b1,b2]</span>
+    <span class="hljs-keyword">if</span> A[<span class="hljs-number">1</span>]!=B[<span class="hljs-number">0</span>]:
+        <span class="hljs-keyword">return</span> [<span class="hljs-literal">False</span>]
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>,A[<span class="hljs-number">0</span>]*A[<span class="hljs-number">1</span>]*B[<span class="hljs-number">1</span>],[A[<span class="hljs-number">0</span>],B[<span class="hljs-number">1</span>]]
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
+    t=next(c).split()
+    dic[t[<span class="hljs-number">0</span>]]=[int(t[<span class="hljs-number">1</span>]),int(t[<span class="hljs-number">2</span>])]
+<span class="hljs-keyword">for</span> val <span class="hljs-keyword">in</span> c:
+    sta=[]
+    ans=<span class="hljs-number">0</span>
+    <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> val:
+        <span class="hljs-keyword">if</span> e==<span class="hljs-string">')'</span>:
+            B=sta.pop()
+            A=sta.pop()
+            re=multi(A,B)
+            <span class="hljs-keyword">if</span> re[<span class="hljs-number">0</span>]==<span class="hljs-literal">False</span>:
+                ans=<span class="hljs-string">'error'</span>
+                <span class="hljs-keyword">break</span>
+            ans+=re[<span class="hljs-number">1</span>]
+            sta.append(re[<span class="hljs-number">2</span>])
+        <span class="hljs-keyword">elif</span> e!=<span class="hljs-string">'('</span>:
+            sta.append(dic[e])
+
+    print(ans)</code></pre>
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/03/07/6-3/#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/uva/" rel="tag">uva</a>, <a class="has-link-grey -link" href="/tags/%E6%A0%88/" rel="tag">栈</a>, <a class="has-link-grey -link" href="/tags/%E7%B4%AB%E4%B9%A6/" rel="tag">紫书</a>
                 </div>
             </div>
         </div>
+        
         
         
     </div>
@@ -196,121 +236,73 @@
 
 
 
-
-
-
-
-
-    
 <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-07T07:47:49.000Z">2020-03-07</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/oj/">oj</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    几秒 读完 (大约 105 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
             
-                <a class="has-link-black-ter" href="/2020/03/07/6-2/">UVA - 514 Rails | 紫书6-2</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>用栈模拟出栈顺序</p>
-</blockquote>
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/weixin.jpg" alt="微信"></div>
+</a>
+
+                
         </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
         
         
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/03/07/6-2/#more">阅读更多</a>
-                </div>
-            </div>
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/07/6-2/">
+                <span class="level-item">UVA - 514 Rails | 紫书6-2</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
         </div>
-        
         
     </div>
 </div>
 
 
 
-
-
-
-
-
-    
 <div class="card">
-    
-    <div class="card-content article ">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
         
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-02T12:41:12.000Z">2020-03-02</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/oj/">oj</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 读完 (大约 223 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/03/02/UVA%20210.%20Concurrency%20Simulator/">UVA 210. Concurrency Simulator | 紫书6-1</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>逻辑其实挺清晰的，但是数据坑点很多,怀疑数据中可能有多的空行。</p>
-</blockquote>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/03/02/UVA%20210.%20Concurrency%20Simulator/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
+<div id="valine-thread" class="content"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: true,
+        verify: true,
+        app_id: 'RKbdsYASse5fPdfp8Hhl9ocz-gzGzoHsz',
+        app_key: 'j3dwidLsjuLSwswo9ky3dhF4',
+        placeholder: '点击开始评论...'
+    });
+</script>
+
     </div>
 </div>
-
-
-
-
-
-
-
-
 </div>
                 
 
@@ -416,6 +408,22 @@
 </div>
     
         
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#题目链接">
+        <span class="has-mr-6">1</span>
+        <span>题目链接</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
     
         
 <div class="card widget">
@@ -832,7 +840,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/avatar.png" alt="Shy" height="28">
+                    <img src="/images/avatar.png" alt="UVA - 442 Matrix Chain Multiplication | 紫书 6-3" height="28">
                 
                 </a>
                 <p class="is-size-7">
