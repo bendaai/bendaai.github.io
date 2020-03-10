@@ -8,18 +8,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>标签: 并查集 - Shy</title>
+<title>线段树模板 - Shy</title>
 
 
-    <meta name="description" content="She was a shy, quiet-spoken girl">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Shy">
-<meta property="og:url" content="http://yoursite.com/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/index.html">
+    <meta name="description" content="动态范围最小值问题。给出一个有n个元素的数组A1，A2，…，An，你的任务是设计一个数据结构，支持以下操作Update（x，v）：把Ax修改为v。Query（L，R）：计算min｛AL，AL＋1，…，AR｝。Add（L，R，v）：把AL，AL＋1，…，AR的值全部增加v。Set（L，R，v）：把AL，AL＋1，…，AR的值全部设置为v。Mul（L，R，v）：把AL，AL＋1，…，AR的值全部乘上">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线段树模板">
+<meta property="og:url" content="http://yoursite.com/2020/03/10/%E7%BA%BF%E6%AE%B5%E6%A0%91%E6%A8%A1%E6%9D%BF/index.html">
 <meta property="og:site_name" content="Shy">
-<meta property="og:description" content="She was a shy, quiet-spoken girl">
+<meta property="og:description" content="动态范围最小值问题。给出一个有n个元素的数组A1，A2，…，An，你的任务是设计一个数据结构，支持以下操作Update（x，v）：把Ax修改为v。Query（L，R）：计算min｛AL，AL＋1，…，AR｝。Add（L，R，v）：把AL，AL＋1，…，AR的值全部增加v。Set（L，R，v）：把AL，AL＋1，…，AR的值全部设置为v。Mul（L，R，v）：把AL，AL＋1，…，AR的值全部乘上">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
+<meta property="article:published_time" content="2020-03-10T11:08:58.000Z">
+<meta property="article:modified_time" content="2020-03-10T11:11:20.015Z">
 <meta property="article:author" content="shy">
+<meta property="article:tag" content="特殊结构">
+<meta property="article:tag" content="线段树">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
@@ -86,7 +90,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/avatar.png" alt="Shy" height="28">
+                <img src="/images/avatar.png" alt="线段树模板" height="28">
             
             </a>
         </div>
@@ -122,6 +126,10 @@
                     
                 
                 
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
                 
                 <a class="navbar-item search" title="搜索" href="javascript:;">
                     <i class="fas fa-search"></i>
@@ -135,127 +143,268 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-03-10T11:08:58.000Z">2020-03-10</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/oj/">oj</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    7 分钟 读完 (大约 1035 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                线段树模板
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>动态范围最小值问题。给出一个有n个元素的数组A1，A2，…，An，你的任务是设计一个数据结构，支持以下操作<br>Update（x，v）：把Ax修改为v。<br>Query（L，R）：计算min｛AL，AL＋1，…，AR｝。<br>Add（L，R，v）：把AL，AL＋1，…，AR的值全部增加v。<br>Set（L，R，v）：把AL，AL＋1，…，AR的值全部设置为v。<br>Mul（L，R，v）：把AL，AL＋1，…，AR的值全部乘上v。<br>Query（L，R）：计算子序列AL，AL＋1，…，AR的元素和、最小值和最大值。</p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h1><pre><code class="hljs python"><span class="hljs-string">'''
+# 线段树
+动态范围最小值问题。给出一个有n个元素的数组A1，A2，…，An，你的任务是设计一个数据结构，支持以下操作
+
+Update（x，v）：把Ax修改为v。
+
+Query（L，R）：计算min｛AL，AL＋1，…，AR｝。
+
+Add（L，R，v）：把AL，AL＋1，…，AR的值全部增加v。
+
+Set（L，R，v）：把AL，AL＋1，…，AR的值全部设置为v。
+
+Mul（L，R，v）：把AL，AL＋1，…，AR的值全部乘上v。
+
+Query（L，R）：计算子序列AL，AL＋1，…，AR的元素和、最小值和最大值。
+'''</span>
+maxn=int(<span class="hljs-number">1e5</span>+<span class="hljs-number">5</span>)
+<span class="hljs-keyword">import</span> queue
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span><span class="hljs-params">(object)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self,v=<span class="hljs-number">0</span>)</span>:</span>
+        self.minv=v
+        self.maxv=v
+        self.sumv=v
+        self.slz=<span class="hljs-literal">None</span>
+        self.plz=<span class="hljs-literal">None</span>
+        self.mlz=<span class="hljs-literal">None</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add_lazy</span><span class="hljs-params">(self,func,v,l,r)</span>:</span>
+        <span class="hljs-keyword">if</span> func==<span class="hljs-string">'set'</span>:
+            self.plz=self.mlz=<span class="hljs-literal">None</span>
+            self.slz=v
+            self.minv=self.maxv=v
+            self.sumv=v*(r-l+<span class="hljs-number">1</span>)
+        <span class="hljs-keyword">elif</span> func==<span class="hljs-string">'mul'</span>:
+            <span class="hljs-keyword">if</span> self.slz:
+                self.slz*=v
+                self.minv=self.maxv=self.slz
+                self.sumv=self.slz*(r-l+<span class="hljs-number">1</span>)
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-keyword">if</span> self.plz:
+                    self.plz*=v
+                    self.mlz*=v
+                    
+                <span class="hljs-keyword">else</span>:
+                    self.mlz=self.mlz*v <span class="hljs-keyword">if</span> self.mlz <span class="hljs-keyword">else</span> v
+                t1,t2=self.minv*v,self.maxv*v
+                self.minv,self.maxv=min(t1,t2),max(t1,t2)
+                self.sumv*=v
+        <span class="hljs-keyword">else</span>:<span class="hljs-comment">#'plus'</span>
+            <span class="hljs-keyword">if</span> self.slz:
+                self.slz+=v
+                self.minv=self.maxv=self.slz
+                self.sumv=self.slz*(r-l+<span class="hljs-number">1</span>)
+            <span class="hljs-keyword">else</span>:
+                self.plz=self.plz+v <span class="hljs-keyword">if</span> self.plz <span class="hljs-keyword">else</span> v
+                self.minv,self.maxv=self.minv+v,self.maxv+v
+                self.sumv+=v*(r-l+<span class="hljs-number">1</span>)
+        
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Segment_tree</span><span class="hljs-params">(object)</span>:</span>
+    <span class="hljs-string">'''
+    lazy标记，代表左右子树没有进行修改，该节点存储值是对的
+    '''</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self,maxn)</span>:</span>
+        self.St=[Node() <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">4</span>*maxn+<span class="hljs-number">5</span>)]
+        self.l=<span class="hljs-number">0</span>
+        self.r=<span class="hljs-number">0</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">maintain</span><span class="hljs-params">(self,root)</span>:</span>
+        <span class="hljs-string">'''
+        maintain的时候保证左右子树的存储值都是对的
+        '''</span>
+        self.St[root].minv=min(self.St[root*<span class="hljs-number">2</span>].minv,self.St[root*<span class="hljs-number">2</span>+<span class="hljs-number">1</span>].minv)
+        self.St[root].maxv=max(self.St[root*<span class="hljs-number">2</span>].maxv,self.St[root*<span class="hljs-number">2</span>+<span class="hljs-number">1</span>].maxv)
+        self.St[root].sumv=self.St[root*<span class="hljs-number">2</span>].sumv+self.St[root*<span class="hljs-number">2</span>+<span class="hljs-number">1</span>].sumv
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">build_St</span><span class="hljs-params">(self,A,l,r,root)</span>:</span>
+        <span class="hljs-string">'''
+        开始时：
+        l=0,r=len(A)-1,root=1
+        '''</span>
+        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">build</span><span class="hljs-params">(root,l,r)</span>:</span>
+            <span class="hljs-keyword">if</span> l==r:
+                self.St[root].minv=A[l]
+                self.St[root].maxv=A[l]
+                self.St[root].sumv=A[l]
+                self.St[root].plz=self.St[root].mlz=self.St[root].slz=<span class="hljs-literal">None</span>
+                <span class="hljs-keyword">return</span>
+            mid=(l+r)//<span class="hljs-number">2</span>
+            build(root*<span class="hljs-number">2</span>,l,mid)
+            build(root*<span class="hljs-number">2</span>+<span class="hljs-number">1</span>,mid+<span class="hljs-number">1</span>,r)
+            
+            self.maintain(root)
+        root,l,self.r=<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,len(A)<span class="hljs-number">-1</span>
+        build(root,l,self.r)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pushdown</span><span class="hljs-params">(self,root,l,mid,r)</span>:</span>
+        <span class="hljs-keyword">if</span> self.St[root].slz:
+            self.St[root*<span class="hljs-number">2</span>].add_lazy(<span class="hljs-string">'set'</span>,self.St[root].slz,l,mid)
+            self.St[root*<span class="hljs-number">2</span>+<span class="hljs-number">1</span>].add_lazy(<span class="hljs-string">'set'</span>,self.St[root].slz,mid+<span class="hljs-number">1</span>,r)
+            
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">if</span> self.St[root].mlz:
+                self.St[root*<span class="hljs-number">2</span>].add_lazy(<span class="hljs-string">'mul'</span>,self.St[root].mlz,l,mid)
+                self.St[root*<span class="hljs-number">2</span>+<span class="hljs-number">1</span>].add_lazy(<span class="hljs-string">'mul'</span>,self.St[root].mlz,mid+<span class="hljs-number">1</span>,r)
+            <span class="hljs-keyword">if</span> self.St[root].plz:
+                self.St[root*<span class="hljs-number">2</span>].add_lazy(<span class="hljs-string">'plus'</span>,self.St[root].plz,l,mid)
+                self.St[root*<span class="hljs-number">2</span>+<span class="hljs-number">1</span>].add_lazy(<span class="hljs-string">'plus'</span>,self.St[root].plz,mid+<span class="hljs-number">1</span>,r)
+        self.St[root].plz=self.St[root].mlz=self.St[root].slz=<span class="hljs-literal">None</span>
+        
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_func</span><span class="hljs-params">(self,ul,ur,func,v=<span class="hljs-number">0</span>)</span>:</span>
+        <span class="hljs-string">'''
+        func:'add'、'mul'、'plus'
+        '''</span>
+        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update</span><span class="hljs-params">(root,l,r)</span>:</span>
+            mid=(l+r)//<span class="hljs-number">2</span>
+            <span class="hljs-keyword">if</span> ul&lt;=l <span class="hljs-keyword">and</span> ur&gt;=r:<span class="hljs-comment">#ul l r ur</span>
+                self.St[root].add_lazy(func,v,l,r)
+                <span class="hljs-keyword">return</span>
+            self.pushdown(root,l,mid,r)
+            <span class="hljs-keyword">if</span> ul&lt;=mid:
+                update(root*<span class="hljs-number">2</span>,l,mid)
+            <span class="hljs-keyword">if</span> ur&gt;mid:
+                update(root*<span class="hljs-number">2</span>+<span class="hljs-number">1</span>,mid+<span class="hljs-number">1</span>,r)
+            self.maintain(root)
+        update(<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,self.r)
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">query_func</span><span class="hljs-params">(self,ql,qr)</span>:</span>
+        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">query</span><span class="hljs-params">(root,l,r)</span>:</span>
+            _min,_max,_sum=float(<span class="hljs-string">'inf'</span>),float(<span class="hljs-string">'-inf'</span>),<span class="hljs-number">0</span>
+            mid=(l+r)//<span class="hljs-number">2</span>
+            <span class="hljs-keyword">if</span> ql&lt;=l <span class="hljs-keyword">and</span> qr&gt;=r:<span class="hljs-comment">#ql l r qr</span>
+                <span class="hljs-keyword">return</span> self.St[root].minv,self.St[root].maxv,self.St[root].sumv
+            self.pushdown(root,l,mid,r)
+            <span class="hljs-keyword">if</span> ql&lt;=mid:<span class="hljs-comment">#左节点有</span>
+                t=query(root*<span class="hljs-number">2</span>,l,mid)
+                _min=min(_min,t[<span class="hljs-number">0</span>])
+                _max=max(_max,t[<span class="hljs-number">1</span>])
+                _sum+=t[<span class="hljs-number">2</span>]
+            <span class="hljs-keyword">if</span> qr&gt;mid:<span class="hljs-comment">#右节点有</span>
+                t=query(root*<span class="hljs-number">2</span>+<span class="hljs-number">1</span>,mid+<span class="hljs-number">1</span>,r)
+                _min=min(_min,t[<span class="hljs-number">0</span>])
+                _max=max(_max,t[<span class="hljs-number">1</span>])
+                _sum+=t[<span class="hljs-number">2</span>]
+            <span class="hljs-keyword">return</span> _min,_max,_sum
+        <span class="hljs-keyword">return</span> query(<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,self.r)</code></pre>
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/%E7%89%B9%E6%AE%8A%E7%BB%93%E6%9E%84/" rel="tag">特殊结构</a>, <a class="has-link-grey -link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
     <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">并查集</a></li>
-        </ul>
-        </nav>
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/weixin.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
     </div>
 </div>
 
-    
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/10/RMQ%E6%A8%A1%E6%9D%BF/">
+                <span class="level-item">RMQ模板</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
 <div class="card">
-    
-    <div class="card-content article ">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
         
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-09T13:22:11.000Z">2020-03-09</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/oj/">oj</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 读完 (大约 152 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/03/09/1160/">UVA - 1160 X-Plosives</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>考察并查集的知识，不能出现环路，即不能有两个属于同一个领域的个体合并。</p>
-</blockquote>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/03/09/1160/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
+<div id="valine-thread" class="content"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: true,
+        verify: true,
+        app_id: 'RKbdsYASse5fPdfp8Hhl9ocz-gzGzoHsz',
+        app_key: 'j3dwidLsjuLSwswo9ky3dhF4',
+        placeholder: '点击开始评论...'
+    });
+</script>
+
     </div>
 </div>
-
-
-
-
-
-
-
-
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-09T13:18:19.000Z">2020-03-09</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/oj/">oj</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 读完 (大约 140 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/03/09/%E5%B9%B6%E6%9F%A5%E9%9B%86%E6%A8%A1%E6%9D%BF/">并查集模板</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>比较简单的一种结构，假设每个个体都有各自的领域，开始每个个体的领域即为自己的名字。<br>支持两种操作。<br>1.将A的领域和B的领域合并为一个领域，领域名更改为最小个体的名字。<br>2.查找A属于哪个领域。</p>
-</blockquote>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/03/09/%E5%B9%B6%E6%9F%A5%E9%9B%86%E6%A8%A1%E6%9D%BF/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
 </div>
                 
 
@@ -361,6 +510,22 @@
 </div>
     
         
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#模板">
+        <span class="has-mr-6">1</span>
+        <span>模板</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
     
         
 <div class="card widget">
@@ -889,7 +1054,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/avatar.png" alt="Shy" height="28">
+                    <img src="/images/avatar.png" alt="线段树模板" height="28">
                 
                 </a>
                 <p class="is-size-7">
