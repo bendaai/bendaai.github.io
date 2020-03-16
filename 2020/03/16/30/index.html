@@ -8,23 +8,21 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>UVA - 514 Rails | 紫书6-2 - Shy</title>
+<title>30. 串联所有单词的子串 - Shy</title>
 
 
-    <meta name="description" content="用栈模拟出栈顺序">
+    <meta name="description" content="典型的滑动窗口解字符串题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="UVA - 514 Rails | 紫书6-2">
-<meta property="og:url" content="http://yoursite.com/2020/03/07/6-2/index.html">
+<meta property="og:title" content="30. 串联所有单词的子串">
+<meta property="og:url" content="http://yoursite.com/2020/03/16/30/index.html">
 <meta property="og:site_name" content="Shy">
-<meta property="og:description" content="用栈模拟出栈顺序">
+<meta property="og:description" content="典型的滑动窗口解字符串题">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="article:published_time" content="2020-03-07T07:47:49.000Z">
-<meta property="article:modified_time" content="2020-03-07T07:49:27.662Z">
+<meta property="article:published_time" content="2020-03-16T07:15:49.000Z">
+<meta property="article:modified_time" content="2020-03-16T07:17:36.807Z">
 <meta property="article:author" content="shy">
-<meta property="article:tag" content="uva">
-<meta property="article:tag" content="栈">
-<meta property="article:tag" content="紫书">
+<meta property="article:tag" content="leetcode">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
@@ -91,7 +89,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/avatar.png" alt="UVA - 514 Rails | 紫书6-2" height="28">
+                <img src="/images/avatar.png" alt="30. 串联所有单词的子串" height="28">
             
             </a>
         </div>
@@ -151,7 +149,7 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-07T07:47:49.000Z">2020-03-07</time>
+                <time class="level-item has-text-grey" datetime="2020-03-16T07:15:49.000Z">2020-03-16</time>
                 
                 <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/oj/">oj</a>
@@ -161,7 +159,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    几秒 读完 (大约 105 个字)
+                    3 分钟 读完 (大约 398 个字)
                 </span>
                 
                 
@@ -170,57 +168,73 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                UVA - 514 Rails | 紫书6-2
+                30. 串联所有单词的子串
             
         </h1>
         <div class="content">
             <blockquote>
-<p>用栈模拟出栈顺序</p>
+<p>典型的滑动窗口解字符串题</p>
 </blockquote>
 <a id="more"></a>
 
-<h1 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h1><p><a href="https://vjudge.net/problem/UVA-514">https://vjudge.net/problem/UVA-514</a></p>
-<pre><code class="hljs python"><span class="hljs-keyword">import</span> sys
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_input</span><span class="hljs-params">()</span>:</span>
-    lines=sys.stdin.read().split(<span class="hljs-string">'\n'</span>)
-    <span class="hljs-keyword">for</span> val <span class="hljs-keyword">in</span> lines:
-        x=val.strip()
-        <span class="hljs-keyword">if</span> x!=<span class="hljs-string">''</span>:
-            <span class="hljs-keyword">yield</span> val
-c=_input()
-<span class="hljs-keyword">while</span> <span class="hljs-number">1</span>:
-    n=int(next(c))
-    <span class="hljs-keyword">if</span> n==<span class="hljs-number">0</span>:
-        <span class="hljs-keyword">break</span>
-    <span class="hljs-keyword">while</span> <span class="hljs-number">1</span>:
-        sta=[]
-        pop_list=list(map(int,next(c).split()))
-        <span class="hljs-keyword">if</span> pop_list[<span class="hljs-number">0</span>]==<span class="hljs-number">0</span>:
-            print()
-            <span class="hljs-keyword">break</span>
-        k=<span class="hljs-number">0</span>
-        i=<span class="hljs-number">1</span>
-        <span class="hljs-keyword">while</span> i&lt;=n:
-            <span class="hljs-keyword">if</span> len(sta)==<span class="hljs-number">0</span> <span class="hljs-keyword">or</span> pop_list[k]!=sta[<span class="hljs-number">-1</span>]:
-                sta.append(i)
-                i+=<span class="hljs-number">1</span>
-            <span class="hljs-keyword">else</span>:
-                sta.pop()
-                k+=<span class="hljs-number">1</span>
-        <span class="hljs-keyword">while</span> len(sta)&gt;<span class="hljs-number">0</span> <span class="hljs-keyword">and</span> sta[<span class="hljs-number">-1</span>]==pop_list[k]:
-            k+=<span class="hljs-number">1</span>
-            sta.pop()
-        <span class="hljs-keyword">if</span> len(sta)&gt;<span class="hljs-number">0</span>:
-            print(<span class="hljs-string">'No'</span>)
-        <span class="hljs-keyword">else</span>:
-            print(<span class="hljs-string">'Yes'</span>)</code></pre>
+<h1 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a>题目内容</h1><blockquote>
+<p>给定一个字符串 s 和一些长度相同的单词 words。找出 s 中恰好可以由 words 中所有单词串联形成的子串的起始位置。</p>
+<p>注意子串要与 words 中的单词完全匹配，中间不能有其他字符，但不需要考虑 words 中单词串联的顺序。</p>
+</blockquote>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><blockquote>
+<p>示例 1：</p>
+<p>输入：<br> s = “barfoothefoobarman”,<br> words = [“foo”,”bar”]<br>输出：[0,9]<br>解释：<br>从索引 0 和 9 开始的子串分别是 “barfoo” 和 “foobar” 。<br>输出的顺序不重要, [9,0] 也是有效答案。<br>示例 2：</p>
+<p>输入：<br> s = “wordgoodgoodgoodbestword”,<br> words = [“word”,”good”,”best”,”word”]<br>输出：[]</p>
+</blockquote>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">findSubstring</span><span class="hljs-params">(self, s: str, words: List[str])</span> -&gt; List[int]:</span>
+        <span class="hljs-string">'''
+        例子：比如示例1
+        将s的可能性分为k组，k为words中字符串的长度
+        1.barfoo foothe thefoo foobar barman
+        2.arfoot oothef hefoob oobarm
+        3.rfooth othefo efooba obarma
+        每一组中，后一个字符串是前一个字符串减了头k个字符加了尾k个字符得到
+        我们用t维护前一个字符串，按长度k切分后的情况，比如barfoo t表示为&#123;'bar':1,'foo':1&#125;
+        若t和words得到的vc一样，那么形成匹配。
+        '''</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> s <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> words:
+            <span class="hljs-keyword">return</span> []
+        ans=[]
+        <span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> Counter
+        vc=Counter(words)
+        k=len(words[<span class="hljs-number">0</span>])
+        L=len(words)
+        
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(k):
+            t=Counter()
+            cnt=<span class="hljs-number">0</span>
+            l,r=i,i
+            <span class="hljs-keyword">while</span> r+k&lt;=len(s):
+                w=s[r:r+k]
+                r+=k
+                <span class="hljs-keyword">if</span> w <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> vc:
+                    l=r
+                    t.clear()
+                    cnt=<span class="hljs-number">0</span>
+                <span class="hljs-keyword">else</span>:
+                    cnt+=<span class="hljs-number">1</span>
+                    t[w]+=<span class="hljs-number">1</span>
+                    <span class="hljs-keyword">while</span> t[w]&gt;vc[w]:
+                        l_w=s[l:l+k]
+                        l+=k
+                        cnt-=<span class="hljs-number">1</span>
+                        t[l_w]-=<span class="hljs-number">1</span>
+                    <span class="hljs-keyword">if</span> cnt==L:
+                        ans.append(l)
+        <span class="hljs-keyword">return</span> ans</code></pre>
         </div>
         
         <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/uva/" rel="tag">uva</a>, <a class="has-link-grey -link" href="/tags/%E6%A0%88/" rel="tag">栈</a>, <a class="has-link-grey -link" href="/tags/%E7%B4%AB%E4%B9%A6/" rel="tag">紫书</a>
+                    <a class="has-link-grey -link" href="/tags/leetcode/" rel="tag">leetcode</a>
                 </div>
             </div>
         </div>
@@ -266,17 +280,10 @@ c=_input()
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/03/07/6-3/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">UVA - 442 Matrix Chain Multiplication | 紫书 6-3</span>
-            </a>
-        </div>
-        
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/07/18/">
-                <span class="level-item">18. 四数之和</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/11/29/">
+                <span class="level-item">29. 两数相除</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -419,9 +426,17 @@ c=_input()
                     目录
                 </h3>
                 <ul class="menu-list"><li>
-        <a class="is-flex" href="#题目链接">
+        <a class="is-flex" href="#题目内容">
         <span class="has-mr-6">1</span>
-        <span>题目链接</span>
+        <span>题目内容</span>
+        </a></li><li>
+        <a class="is-flex" href="#示例">
+        <span class="has-mr-6">2</span>
+        <span>示例</span>
+        </a></li><li>
+        <a class="is-flex" href="#题解">
+        <span class="has-mr-6">3</span>
+        <span>题解</span>
         </a></li></ul>
             </div>
         </div>
@@ -983,7 +998,7 @@ c=_input()
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/avatar.png" alt="UVA - 514 Rails | 紫书6-2" height="28">
+                    <img src="/images/avatar.png" alt="30. 串联所有单词的子串" height="28">
                 
                 </a>
                 <p class="is-size-7">
